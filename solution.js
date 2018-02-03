@@ -46,6 +46,7 @@ function trendTracker(days, window, homePrices) {
 			if (testingWindow[i + 1] > testingWindow[i]) increased += 1;
 			if (testingWindow[i + 1] < testingWindow[i]) decreased += 1;
 			if (increased == testingWindow.length - 1) increased += 1
+			if (decreased == testingWindow.length - 1) decreased += 1
 		}
 		console.log(increased - decreased);
 	}
