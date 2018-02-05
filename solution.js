@@ -1,35 +1,33 @@
-/* first access input.txt 
+/* first access input.txt */
 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-function toPrint(text) {
-	console.log(text);
-}
-
 function readTextFile(file) {
-	var req = new XMLHttpRequest();
+  var rawFile = new XMLHttpRequest();
+  rawFile.open("GET", file, false);
 
-	req.open('GET', file);
-	
-
-	req.onload = function(){
-	    toPrint(this.responseText);
-	};
-
-	req.send();
-	
+  rawFile.onreadystatechange = function () {
+    if(rawFile.readyState === 4) {
+      if(rawFile.status === 200 || rawFile.status == 0) {
+        var allText = rawFile.responseText;
+        assignVariables(allText);
+      }
+    }
+	}
+  rawFile.send(null);
 }
 
+readTextFile("file:///Users/wjjackson/Desktop/amne-challenge/input.txt");
 
-readTextFile("input.txt");
+function assignVariables(textFileContent) {
+	let lineOne = textFileContent.split("\n")[0].split(",")[0].split(" ");
+	let days = parseInt(lineOne[0]);
+	let windowFrame = parseInt(lineOne[1]);
 
-console.log("Hello"); */
+	let homePrices = textFileContent.split("\n")[1].split(" ").map( homePrice => parseInt(homePrice));
+	return trendTracker(days, windowFrame, homePrices)
+}
 
-/* assuming that now I have access to the information
-
-var days
-var window
-var [averageHomeSalePrice] */
 
 function trendTracker(days, window, homePrices) {
 
@@ -64,8 +62,10 @@ function trendTracker(days, window, homePrices) {
 	}
 }
 
+
+
 // console.time(trendTracker);
-trendTracker(5, 3, [188930, 194123, 201345, 154243, 154243]);
+// trendTracker(5, 3, [188930, 194123, 201345, 154243, 154243]);
 // trendTracker(10, 3, [188930, 194123, 201345, 154243, 154243, 188930, 194123, 201345, 154243, 154243]);
 // trendTracker(20, 3, [188930, 194123, 201345, 154243, 154243, 188930, 194123, 201345, 154243, 154243, 188930, 194123, 201345, 154243, 154243, 188930, 194123, 201345, 154243, 154243]);
 // console.timeEnd(trendTracker); 
