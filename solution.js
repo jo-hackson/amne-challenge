@@ -1,5 +1,3 @@
-/* first access input.txt */
-
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 function readTextFile(file) {
@@ -9,8 +7,7 @@ function readTextFile(file) {
   rawFile.onreadystatechange = function () {
     if(rawFile.readyState === 4) {
       if(rawFile.status === 200 || rawFile.status == 0) {
-        var allText = rawFile.responseText;
-        assignVariables(allText);
+        assignVariables(rawFile.responseText);
       }
     }
 	}
@@ -61,17 +58,4 @@ function trendTracker(days, window, homePrices) {
 		console.log(increased - decreased);
 	}
 }
-
-
-
-// console.time(trendTracker);
-// trendTracker(5, 3, [188930, 194123, 201345, 154243, 154243]);
-// trendTracker(10, 3, [188930, 194123, 201345, 154243, 154243, 188930, 194123, 201345, 154243, 154243]);
-// trendTracker(20, 3, [188930, 194123, 201345, 154243, 154243, 188930, 194123, 201345, 154243, 154243, 188930, 194123, 201345, 154243, 154243, 188930, 194123, 201345, 154243, 154243]);
-// console.timeEnd(trendTracker); 
-// 2.912ms without cache
-// 3.061ms with cache
-// 2.938ms without cache
-// 4.954ms with cache
-
 
